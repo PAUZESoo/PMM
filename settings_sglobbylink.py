@@ -8,7 +8,7 @@
 # IMPORTANT: You must enter these or the bot won't work!
 
 # IMPORTANT: get your Discord bot token from https://discordapp.com/developers/applications/me
-discordBotTokenIMPORTANT = "ODUyNTQxNzQwMjMzNjU0Mjcy.YMIVXg.BdQz18E6oEZmWv2ZABWuWdBU46g"
+discordBotTokenIMPORTANT = "ODUyNTQxNzQwMjMzNjU0Mjcy.YMIVXg.glCAu4G_3Hk4m7OictIeG3pA2Bg"
 
 # IMPORTANT: get your Steam API key from https://steamcommunity.com/dev/apikey
 steamApiKeyIMPORTANT = "2BCA163D96794678EB7C0D83E52B810F"
