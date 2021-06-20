@@ -315,7 +315,7 @@ async def on_message(message):
                         if "저장" in data["response"].keys():
                             steamIdTable[message.author.id] = data["response"]["저장"]
                             await save_steam_ids()
-                            await message.channel.send("Saved " + message.author.name + "'s Steam ID.")
+                            await message.channel.send(message.author.name + " 님의 프로필 주소가 저장되었습니다.")
                             bSavedSteamId = True
                             # Don't return; fall through to the "if bSavedSteamId" code instead
                         elif idStr.isdigit():
@@ -371,7 +371,7 @@ async def on_message(message):
                         gameName = ""
                         if "gameextrainfo" in pdata.keys():
                             gameName = pdata["gameextrainfo"] + " "
-                        await message.channel.send(message.author.name + "'s " + gameName + "lobby: " + steamLobbyUrl)
+                        await message.channel.send(message.author.name + "님의 " + gameName + "플매방: " + steamLobbyUrl)
                         return
                     else:
                         # Steam didn't give us a lobby ID. But why?
