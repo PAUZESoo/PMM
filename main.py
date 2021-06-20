@@ -245,10 +245,7 @@ async def on_message(message):
     if botCmd == LobbyBotCommand.HELP:
         await message.channel.send("플매봇 입니다.\n\nCommands:\n- `!플매`: 초대링크를 대화방에 보냅니다.\n- `!저장`: 프로필주소를 저장합니다.\n" + get_steam_id_instructions())
         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-            file = ["",""]
-            file[0] = discord.File("steam1.jpg")
-            file[1] = discord.File("steam2.jpg")
-            await message.channel.send("", file=file[0,1])
+            await message.channel.send("", file=discord.File("steam.jpg"))
         return
 
     elif botCmd == LobbyBotCommand.STEAMID:
@@ -257,7 +254,7 @@ async def on_message(message):
         if len(words) < 2:
             await message.channel.send("`!저장`: " + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-                await message.channel.send("", file=discord.File("steam1.jpg"))
+                await message.channel.send("", file=discord.File("steam.jpg"))
             return
         else:
             maxWordCount = min(len(words), 10)
@@ -279,7 +276,7 @@ async def on_message(message):
                     # This is a malformed profile URL, with no slash after "steamcommunity.com/id"
                     await message.channel.send("`!저장`: " + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-                        await message.channel.send("", file=discord.File("steam1.jpg"))
+                        await message.channel.send("", file=discord.File("steam.jpg"))
                     return
             else:
                 # Try the other type of steam profile URL. Let's copy and paste.
@@ -294,13 +291,13 @@ async def on_message(message):
                         # This is a malformed profile URL, with no slash after "steamcommunity.com/profiles"
                         await message.channel.send("`!저장`: " + get_steam_id_instructions())
                         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-                            await message.channel.send("", file=discord.File("steam1.jpg"))
+                            await message.channel.send("", file=discord.File("steam.jpg"))
                         return
                 elif onlyAllowFullProfileURLs:
                     # This isn't either type of full profile URL, and we're only allowing full profile URLs
                     await message.channel.send("`!steamid` usage: " + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-                        await message.channel.send("", file=discord.File("steam1.jpg"))
+                        await message.channel.send("", file=discord.File("steam.jpg"))
                     return
 
             if len(idStr) > 200:
@@ -330,7 +327,7 @@ async def on_message(message):
                         else:
                             await message.channel.send("Could not find Steam ID: " + idStr + ". Make sure you " + get_steam_id_instructions())
                             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-                                await message.channel.send("", file=discord.File("steam1.jpg"))
+                                await message.channel.send("", file=discord.File("steam.jpg"))
                             return
                 else:
                     await message.channel.send(message.author.name + " 님의 저장된 주소를 찾을수 없습니다. 저장을 먼저 해주세요.")
@@ -429,7 +426,7 @@ async def on_message(message):
         else:
             await message.channel.send("Steam ID not found for " + message.author.name +  ". Type `!저장` and " + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-                await message.channel.send("", file=discord.File("steam1.jpg"))
+                await message.channel.send("", file=discord.File("steam.jpg"))
             return
 
 client.run(discordBotTokenIMPORTANT)
