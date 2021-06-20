@@ -321,7 +321,7 @@ async def on_message(message):
                         elif idStr.isdigit():
                             steamIdTable[message.author.id] = idStr
                             await save_steam_ids()
-                            await message.channel.send("Saved " + message.author.name + "'s Steam ID.")
+                            await message.channel.send(message.author.name + " 님의 프로필 주소가 저장되었습니다.")
                             bSavedSteamId = True
                             # Don't return; fall through to the "if bSavedSteamId" code instead
                         else:
@@ -330,7 +330,7 @@ async def on_message(message):
                                 await message.channel.send("", file=discord.File("steam1.jpg"))
                             return
                 else:
-                    await message.channel.send("Error: failed to find " + message.author.name + "'s Steam ID.")
+                    await message.channel.send(message.author.name + " 님의 저장된 주소를 찾을수 없습니다. 저장을 먼저 해주세요.")
                     return
 
         if bSavedSteamId:
