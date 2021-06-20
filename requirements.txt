@@ -5,4 +5,3 @@ aiohttp
 threading
 time
 Enum
-*
