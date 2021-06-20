@@ -1,0 +1,8 @@
+discord.py
+asyncio
+json
+aiohttp
+threading
+time
+Enum
+*
