@@ -1,6 +1,5 @@
 discord.py
 asyncio
 aiohttp
-threading
 time
 Enum
