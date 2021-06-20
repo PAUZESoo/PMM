@@ -221,7 +221,7 @@ async def on_message(message):
 
     # check which command we wanted (and ignore any message that isn't a command)
     lowerCaseMessageStart = messageContent[:8].lower()
-    if lowerCaseMessageStart.startswith('!도움') and not startedWithUsername:
+    if lowerCaseMessageStart.startswith('!헬프') and not startedWithUsername:
         botCmd = LobbyBotCommand.HELP
     elif lowerCaseMessageStart.startswith('!저장') and not startedWithUsername:
         botCmd = LobbyBotCommand.STEAMID
