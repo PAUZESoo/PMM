@@ -354,7 +354,7 @@ async def on_message(message):
                                     if not ("game_count" in ownedGamesData["response"].keys() and ownedGamesData["response"]["game_count"] > 0):
                                         await message.channel.send("(Note for " + message.author.name + ": Your profile's Game Details are not public, so the bot won't be able to see if you're in a lobby.)")
                                         if check_if_public_profile_image_can_be_posted_and_update_timestamp_if_true():
-                                            await message.channel.send("", file=discord.File("steam2.jpg"))
+                                            await message.channel.send("", file=discord.File("steam.jpg"))
         return
 
     elif botCmd == LobbyBotCommand.LOBBY:
@@ -403,12 +403,12 @@ async def on_message(message):
                                     else:
                                         await message.channel.send(message.author.name + " 님의 방을 찾을 수 없습니다. " ": '나의 프로필'이 공개 상태가 아닙니다. 공개 상태로 바꿔주세요")
                                         if check_if_public_profile_image_can_be_posted_and_update_timestamp_if_true():
-                                            await message.channel.send("", file=discord.File("steam2.jpg"))
+                                            await message.channel.send("", file=discord.File("steam.jpg"))
                                         return
                                 else:
                                     await message.channel.send(message.author.name + " 님의 방을 찾을 수 없습니다. " ": '게임세부정보' 가 공개 상태가 아닙니다.")
                                     if check_if_public_profile_image_can_be_posted_and_update_timestamp_if_true():
-                                        await message.channel.send("", file=discord.File("steam2.jpg"))
+                                        await message.channel.send("", file=discord.File("steam.jpg"))
                                     return
                             else:
                                 await message.channel.send("SteamAPI: GetOwnedGames() failed for " + message.author.name + ". Is the Steam Web API down?")
