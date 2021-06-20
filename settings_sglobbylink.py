@@ -8,8 +8,8 @@
 # IMPORTANT: You must enter these or the bot won't work!
 
 # IMPORTANT: get your Discord bot token from https://discordapp.com/developers/applications/me
-access_token = os.environ["BOT_TOKEN"]
-discordBotTokenIMPORTANT = access_token
+
+discordBotTokenIMPORTANT = os.environ["BOT_TOKEN"]
 
 # IMPORTANT: get your Steam API key from https://steamcommunity.com/dev/apikey
 steamApiKeyIMPORTANT = "2BCA163D96794678EB7C0D83E52B810F"
