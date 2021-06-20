@@ -245,7 +245,7 @@ async def on_message(message):
     if botCmd == LobbyBotCommand.HELP:
         await message.channel.send("플매봇 입니다.\n\nCommands:\n- `!플매`: 초대링크를 대화방에 보냅니다.\n- `!저장`: 프로필주소를 저장합니다.\n" + get_steam_id_instructions())
         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
-            await message.channel.send("", file=discord.File("steam1.jpg\n", "steam2.jpg"))
+            await message.channel.send("", file=discord.File("steam1.jpg" + "steam2.jpg"))
         return
 
     elif botCmd == LobbyBotCommand.STEAMID:
