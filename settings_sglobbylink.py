@@ -12,7 +12,7 @@
 discordBotTokenIMPORTANT = os.environ["BOT_TOKEN"]
 
 # IMPORTANT: get your Steam API key from https://steamcommunity.com/dev/apikey
-steamApiKeyIMPORTANT = "2BCA163D96794678EB7C0D83E52B810F"
+steamApiKeyIMPORTANT = os.environ["API_TOKEN"]
 
 
 ######################################
