@@ -295,7 +295,7 @@ async def on_message(message):
                         return
                 elif onlyAllowFullProfileURLs:
                     # This isn't either type of full profile URL, and we're only allowing full profile URLs
-                    await message.channel.send("`!steamid` usage: " + get_steam_id_instructions())
+                    await message.channel.send("`!저장` usage: " + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                         await message.channel.send("", file=discord.File("steam.jpg"))
                     return
