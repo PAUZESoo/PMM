@@ -251,7 +251,7 @@ async def on_message(message):
     elif botCmd == LobbyBotCommand.STEAMID:
         words = message.content.split(" ")
         bSavedSteamId = False
-        if len(words) < 4:
+        if len(words) < 2:
             await message.channel.send("`!저장`: " + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                 await message.channel.send("", file=discord.File("steam.jpg"))
