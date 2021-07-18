@@ -312,8 +312,8 @@ async def on_message(message):
                         await message.channel.send("SteamAPI: ResolveVanityURL() failed for " + message.author.name + ". Is the Steam Web API down?")
                         return
                     else:
-                        if "저장" in data["response"].keys():
-                            steamIdTable[message.author.id] = data["response"]["저장"]
+                        if "steamid" in data["response"].keys():
+                            steamIdTable[message.author.id] = data["response"]["steamid"]
                             await save_steam_ids()
                             await message.channel.send(message.author.name + " 님의 프로필 주소가 저장되었습니다.")
                             bSavedSteamId = True
