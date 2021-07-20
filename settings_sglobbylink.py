@@ -46,7 +46,7 @@ maxTotalDailyRequests = 45000
 
 # Image spam limiting: How often the bot will post the public_profile_instructions.jpg and steam_url_instructions.jpg instruction images for people setting up their profiles
 allowImagePosting = True
-imagePostingCooldownSeconds = 60 * 10
+imagePostingCooldownSeconds = 5
 
 #######
 ######################################
