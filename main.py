@@ -85,6 +85,7 @@ async def load_steam_ids():
 
     try:
         with open(steamIdFileName, 'r') as f:
+            steamIdTable.clear()
             for line in f:
                 line = line.rstrip('\n')
                 splitLine = line.split(" ")
