@@ -41,8 +41,8 @@ steamProfileUrlLongIdentifierLen = len(steamProfileUrlLongIdentifier)
 
 steamIdTable = {}
 
-steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. `!저장 https://steamcommunity.com/profiles/76561198119856587/`"
-steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. `!저장 https://steamcommunity.com/profiles/76561198119856587/`"
+steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. `!저장 https://steamcommunity.com/profiles/76561198119856587/` or '~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. `!저장 https://steamcommunity.com/profiles/76561198119856587/` or '~저장 https://steamcommunity.com/id/PAUZEE/'"
 
 todaysRequestCounts = {}
 
@@ -229,11 +229,11 @@ async def on_message(message):
 
     # check which command we wanted (and ignore any message that isn't a command)
     lowerCaseMessageStart = messageContent[:8].lower()
-    if lowerCaseMessageStart.startswith('!헬프') and not startedWithUsername:
+    if lowerCaseMessageStart.startswith('~플매') and not startedWithUsername:
         botCmd = LobbyBotCommand.HELP
-    elif lowerCaseMessageStart.startswith('!저장') and not startedWithUsername:
+    elif lowerCaseMessageStart.startswith('~저장') and not startedWithUsername:
         botCmd = LobbyBotCommand.STEAMID
-    elif lowerCaseMessageStart.startswith('!플매'):
+    elif lowerCaseMessageStart.startswith('~주소'):
         botCmd = LobbyBotCommand.LOBBY
     else:
         return
@@ -251,7 +251,7 @@ async def on_message(message):
 
     # actually execute the command
     if botCmd == LobbyBotCommand.HELP:
-        await message.channel.send("플매봇 입니다.\n\nCommands:\n- `!플매`: 초대링크를 대화방에 보냅니다.\n- `!저장`: 프로필주소를 저장합니다.\n" + get_steam_id_instructions())
+        await message.channel.send("플매봇 입니다.\n\nCommands:\n- `~주소`: 초대링크를 대화방에 보냅니다.\n- `~저장`: 프로필주소를 저장합니다.\n" + get_steam_id_instructions())
         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
             await message.channel.send("", file=discord.File("steam.jpg"))
         return
@@ -260,7 +260,7 @@ async def on_message(message):
         words = message.content.split(" ")
         bSavedSteamId = False
         if len(words) < 2:
-            await message.channel.send("`!저장`: " + get_steam_id_instructions())
+            await message.channel.send("`~저장`: " + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                 await message.channel.send("", file=discord.File("steam.jpg"))
             return
@@ -282,7 +282,7 @@ async def on_message(message):
                     idStr = idStr[lastSlash + 1:]
                 else:
                     # This is a malformed profile URL, with no slash after "steamcommunity.com/id"
-                    await message.channel.send("`!저장`: " + get_steam_id_instructions())
+                    await message.channel.send("`~저장`: " + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                         await message.channel.send("", file=discord.File("steam.jpg"))
                     return
@@ -297,19 +297,19 @@ async def on_message(message):
                         idStr = idStr[lastSlash + 1:]
                     else:
                         # This is a malformed profile URL, with no slash after "steamcommunity.com/profiles"
-                        await message.channel.send("`!저장`: " + get_steam_id_instructions())
+                        await message.channel.send("`~저장`: " + get_steam_id_instructions())
                         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                             await message.channel.send("", file=discord.File("steam.jpg"))
                         return
                 elif onlyAllowFullProfileURLs:
                     # This isn't either type of full profile URL, and we're only allowing full profile URLs
-                    await message.channel.send("`!저장` usage: " + get_steam_id_instructions())
+                    await message.channel.send("`~저장` usage: " + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                         await message.channel.send("", file=discord.File("steam.jpg"))
                     return
 
             if len(idStr) > 200:
-                await message.channel.send("Error: Steam ID too long.")
+                await message.channel.send("아이디가 길이가 너무 깁니다.")
                 return
             else:
                 steamIdUrl = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + steamApiKeyIMPORTANT + "&vanityurl=" + idStr
@@ -360,7 +360,7 @@ async def on_message(message):
                                 ownedGamesData = json.loads(ownedGamesContents)
                                 if "response" in ownedGamesData.keys():
                                     if not ("game_count" in ownedGamesData["response"].keys() and ownedGamesData["response"]["game_count"] > 0):
-                                        await message.channel.send("(Note for " + message.author.name + ": Your profile's Game Details are not public, so the bot won't be able to see if you're in a lobby.)")
+                                        await message.channel.send(message.author.name + "님의 '게임 세부정보'가 공개 상태가 아닙니다.)")
                                         if check_if_public_profile_image_can_be_posted_and_update_timestamp_if_true():
                                             await message.channel.send("", file=discord.File("steam.jpg"))
         return
@@ -379,7 +379,7 @@ async def on_message(message):
                         gameName = ""
                         if "gameextrainfo" in pdata.keys():
                             gameName = pdata["gameextrainfo"] + " "
-                        await message.channel.send(message.author.name + "님의 " + gameName + "플매방: " + steamLobbyUrl)
+                        await message.channel.send(message.author.name + "님의 " + gameName + "방: " + steamLobbyUrl)
                         return
                     else:
                         # Steam didn't give us a lobby ID. But why?
@@ -432,7 +432,7 @@ async def on_message(message):
                 await message.channel.send("SteamAPI: GetPlayerSummaries() failed for " + message.author.name + ". Is the Steam Web API down?")
                 return
         else:
-            await message.channel.send("Steam ID not found for " + message.author.name +  ". Type `!저장` and " + get_steam_id_instructions())
+            await message.channel.send(message.author.name + "님의 주소를 찾을 수 없습니다. 다시 저장해주세요. 예시)`~저장` and " + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                 await message.channel.send("", file=discord.File("steam.jpg"))
             return
