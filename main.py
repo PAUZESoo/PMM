@@ -10,6 +10,8 @@ import json
 import aiohttp
 import threading
 import time
+from discord.ext import tasks
+from itertools import cycle
 from enum import Enum
 from settings_sglobbylink import *
 
@@ -173,11 +175,18 @@ async def async_get_json(url):
             else:
                 return None
 
+status = cycle(["~플매", "~저장", "~주소"])
+
 @client.event
 async def on_ready():
     await load_steam_ids()
     client.loop.create_task(clear_request_counts_once_per_day())
     print("LOADED: sglobbylink-discord.py v" + versionNumber + " by Mr Peck.")
+    change_status.start()
+
+@tasks.loop(seconds=5)  
+async def change_status():
+    await client.change_presence(activity=discord.Game(next(status)))
 
 @client.event
 async def on_message(message):
