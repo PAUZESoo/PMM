@@ -41,8 +41,8 @@ steamProfileUrlLongIdentifierLen = len(steamProfileUrlLongIdentifier)
 
 steamIdTable = {}
 
-steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. `!저장 https://steamcommunity.com/profiles/76561198119856587/` or '~저장 https://steamcommunity.com/id/PAUZEE/'"
-steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. `!저장 https://steamcommunity.com/profiles/76561198119856587/` or '~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. `~저장 https://steamcommunity.com/profiles/76561198119856587/` or '~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. `~저장 https://steamcommunity.com/profiles/76561198119856587/` or '~저장 https://steamcommunity.com/id/PAUZEE/'"
 
 todaysRequestCounts = {}
 
@@ -192,7 +192,7 @@ async def change_status():
 async def on_message(message):
 
     # all commands start with '!', but we try to handle messages that start with <@ too
-    if not message.content.startswith('!') and not message.content.startswith('<@'):
+    if not message.content.startswith('~') and not message.content.startswith('<@'):
         return
 
     messageContent = message.content[:40] # Grab enough message for an @username and some whitespace before the !command
@@ -210,7 +210,7 @@ async def on_message(message):
     messageContent =  messageContent.lstrip()
 
     # all commands start with '!'
-    if not messageContent.startswith('!'):
+    if not messageContent.startswith('~'):
         return
 
     # filter out DMs
