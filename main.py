@@ -41,8 +41,8 @@ steamProfileUrlLongIdentifierLen = len(steamProfileUrlLongIdentifier)
 
 steamIdTable = {}
 
-steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
-steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. **~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/**"
+steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. **~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/**"
 
 todaysRequestCounts = {}
 
@@ -193,7 +193,7 @@ async def change_status():
 @tasks.loop(seconds=60)
 async def send_message():
     await client.get_channel(867596676705026088).send("~주소")
-    await client.get_channel(867596676705026088).send("~채팅청소")
+    await client.get_channel(867596676705026088).send("~채팅청소 6")
 
 @client.event
 async def on_message(message):
@@ -202,9 +202,9 @@ async def on_message(message):
         if message.author.guild_permissions.manage_messages:
             try:
                 amount = message.content[6:]
+                await message.channel.purge(limit=1)
                 await message.channel.purge(limit=int(amount))
                 await message.channel.send(f"**{amount}**개의 메시지를 지웠습니다.")
-                await message.delete()
             except ValueError:
                 await message.channel.send("청소하실 메시지의 **수**를 입력해 주세요.")
         else:
@@ -303,7 +303,7 @@ async def on_message(message):
                     idStr = idStr[lastSlash + 1:]
                 else:
                     # This is a malformed profile URL, with no slash after "steamcommunity.com/id"
-                    await message.channel.send("`~저장`: " + get_steam_id_instructions())
+                    await message.channel.send("~저장: " + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                         await message.channel.send("", file=discord.File("steam.jpg"))
                     return
@@ -318,13 +318,13 @@ async def on_message(message):
                         idStr = idStr[lastSlash + 1:]
                     else:
                         # This is a malformed profile URL, with no slash after "steamcommunity.com/profiles"
-                        await message.channel.send("`~저장`: " + get_steam_id_instructions())
+                        await message.channel.send("~저장: " + get_steam_id_instructions())
                         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                             await message.channel.send("", file=discord.File("steam.jpg"))
                         return
                 elif onlyAllowFullProfileURLs:
                     # This isn't either type of full profile URL, and we're only allowing full profile URLs
-                    await message.channel.send("`~저장` usage: " + get_steam_id_instructions())
+                    await message.channel.send("~저장" + get_steam_id_instructions())
                     if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                         await message.channel.send("", file=discord.File("steam.jpg"))
                     return
@@ -453,7 +453,7 @@ async def on_message(message):
                 await message.channel.send("SteamAPI: GetPlayerSummaries() failed for " + message.author.name + ". Is the Steam Web API down?")
                 return
         else:
-            await message.channel.send(message.author.name + "님의 주소를 찾을 수 없습니다. 다시 저장해주세요. 예시)`~저장` and " + get_steam_id_instructions())
+            await message.channel.send(message.author.name + "님의 주소를 찾을 수 없습니다. 다시 저장해주세요. 예시)" + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                 await message.channel.send("", file=discord.File("steam.jpg"))
             return
