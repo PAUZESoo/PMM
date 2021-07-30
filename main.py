@@ -182,11 +182,18 @@ async def on_ready():
     await load_steam_ids()
     client.loop.create_task(clear_request_counts_once_per_day())
     print("LOADED: sglobbylink-discord.py v" + versionNumber + " by Mr Peck.")
+    await client.get_channel(867596676705026088).send("플매봇 동작시작")
     change_status.start()
+    send_message.start()
 
 @tasks.loop(seconds=5)  
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
+
+@tasks.loop(seconds=5)
+async def send_message():
+    msg = await client.get_channel(867596676705026088).send("작동체크")
+    await msg.delete()
 
 @client.event
 async def on_message(message):
