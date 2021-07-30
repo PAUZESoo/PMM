@@ -41,8 +41,8 @@ steamProfileUrlLongIdentifierLen = len(steamProfileUrlLongIdentifier)
 
 steamIdTable = {}
 
-steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. ~저장 'https://steamcommunity.com/profiles/76561198119856587/' or ~저장 'https://steamcommunity.com/id/PAUZEE/'"
-steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. ~저장 'https://steamcommunity.com/profiles/76561198119856587/' or ~저장 'https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
 
 todaysRequestCounts = {}
 
@@ -192,11 +192,25 @@ async def change_status():
 
 @tasks.loop(seconds=60)
 async def send_message():
-    msg = await client.get_channel(867596676705026088).send("~주소")
-    await msg.delete()
+    await client.get_channel(867596676705026088).send("~주소")
+    await client.get_channel(867596676705026088).send("~채팅청소")
 
 @client.event
 async def on_message(message):
+
+    if message.content.startswith("~채팅청소"):
+        if message.author.guild_permissions.manage_messages:
+            try:
+                amount = message.content[6:]
+                await message.channel.purge(limit=int(amount))
+                await message.channel.send(f"**{amount}**개의 메시지를 지웠습니다.")
+                await message.delete()
+            except ValueError:
+                await message.channel.send("청소하실 메시지의 **수**를 입력해 주세요.")
+        else:
+            await message.channel.send("권한이 없습니다.")
+
+
 
     # all commands start with '!', but we try to handle messages that start with <@ too
     if not message.content.startswith('~') and not message.content.startswith('<@'):
