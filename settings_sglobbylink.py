@@ -10,10 +10,10 @@
 # IMPORTANT: get your Discord bot token from https://discordapp.com/developers/applications/me
 import os
 
-discordBotTokenIMPORTANT = os.environ["BOT_TOKEN"]
+discordBotTokenIMPORTANT = os.environ['BOT_TOKEN']
 
 # IMPORTANT: get your Steam API key from https://steamcommunity.com/dev/apikey
-steamApiKeyIMPORTANT = os.environ["API_TOKEN"]
+steamApiKeyIMPORTANT = os.environ['API_TOKEN']
 
 
 ######################################
