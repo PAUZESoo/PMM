@@ -41,8 +41,8 @@ steamProfileUrlLongIdentifierLen = len(steamProfileUrlLongIdentifier)
 
 steamIdTable = {}
 
-steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. **~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/**"
-steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. **~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/**"
+steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
 
 todaysRequestCounts = {}
 
@@ -204,7 +204,8 @@ async def on_message(message):
                 amount = message.content[6:]
                 await message.channel.purge(limit=1)
                 await message.channel.purge(limit=int(amount))
-                await message.channel.send(f"**{amount}**개의 메시지를 지웠습니다.")
+                msg = await message.channel.send(f"**{amount}**개의 메시지를 지웠습니다.")
+                await msg.delete
             except ValueError:
                 await message.channel.send("청소하실 메시지의 **수**를 입력해 주세요.")
         else:
