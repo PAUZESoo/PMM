@@ -190,7 +190,7 @@ async def on_ready():
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
-@tasks.loop(minutes=20)
+@tasks.loop(seconds=1200)
 async def send_message():
     await client.get_channel(867596676705026088).send("~주소")
     await client.get_channel(867596676705026088).send("~채팅청소 3")
@@ -453,7 +453,7 @@ async def on_message(message):
                 await message.channel.send("SteamAPI: GetPlayerSummaries() failed for " + message.author.name + ". Is the Steam Web API down?")
                 return
         else:
-            await message.channel.send(message.author.name + "님의 주소를 찾을 수 없습니다. 다시 저장해주세요. 예시)" + get_steam_id_instructions())
+            await message.channel.send(message.author.name + "님의 주소를 찾을 수 없습니다." + get_steam_id_instructions())
             if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
                 await message.channel.send("", file=discord.File("steam.jpg"))
             return
