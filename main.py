@@ -190,7 +190,9 @@ async def on_ready():
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
-@tasks.loop(seconds=1200)
+x = 20
+
+@tasks.loop(minutes=x)
 async def send_message():
     await client.get_channel(867596676705026088).send("~주소")
     await client.get_channel(867596676705026088).send("~채팅청소 3")
