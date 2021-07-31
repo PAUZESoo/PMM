@@ -190,7 +190,7 @@ async def on_ready():
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
-@tasks.loop(seconds=60)
+@tasks.loop(minutes=20)
 async def send_message():
     await client.get_channel(867596676705026088).send("~주소")
     await client.get_channel(867596676705026088).send("~채팅청소 3")
@@ -204,8 +204,7 @@ async def on_message(message):
                 amount = message.content[6:]
                 await message.channel.purge(limit=1)
                 await message.channel.purge(limit=int(amount))
-                msg = await message.channel.send(f"**{amount}**개의 메시지를 지웠습니다.")
-                await msg.delete
+                await message.channel.send(f"**{amount}**개의 메시지를 지웠습니다.")
             except ValueError:
                 await message.channel.send("청소하실 메시지의 **수**를 입력해 주세요.")
         else:
