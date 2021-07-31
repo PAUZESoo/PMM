@@ -41,8 +41,8 @@ steamProfileUrlLongIdentifierLen = len(steamProfileUrlLongIdentifier)
 
 steamIdTable = {}
 
-steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
-steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/ or ~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsOnlyFullURL = "예시와 같이 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/' or '~저장 https://steamcommunity.com/id/PAUZEE/'"
+steamIdInstructionsPartialURLAllowed = "전체 스팀 프로필주소를 입력해주세요. '~저장 https://steamcommunity.com/profiles/76561198119856587/' or '~저장 https://steamcommunity.com/id/PAUZEE/'"
 
 todaysRequestCounts = {}
 
@@ -193,7 +193,7 @@ async def change_status():
 @tasks.loop(seconds=60)
 async def send_message():
     await client.get_channel(867596676705026088).send("~주소")
-    await client.get_channel(867596676705026088).send("~채팅청소 6")
+    await client.get_channel(867596676705026088).send("~채팅청소 3")
 
 @client.event
 async def on_message(message):
